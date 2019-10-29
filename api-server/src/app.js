@@ -11,10 +11,10 @@ const notFound = require('./middleware/404.js');
 
 // Models
 // TODO: Pull these in (or create them)!
-const Products = require('./models/products.js');
+const Products = require('../models/products/products');
 const products = new Products();
 
-const Categories = require('./models/categories.js');
+const Categories = require('../models/categories/categories');
 const categories = new Categories();
 
 // Prepare the express app
@@ -68,7 +68,7 @@ function getCategory(request, response, next) {
 function postCategories(request, response, next) {
   // expects the record that was just added to the database
   categories.post(request.body)
-    .then(result => response.status(200).json(result[0]))
+    .then(result => response.status(200).json(result))
     .catch(next);
 }
 
@@ -104,7 +104,7 @@ function getProducts(request, response, next) {
 function getProduct(request, response, next) {
   // expects an array with one object in it
   products.get(request.params.id)
-    .then(result => response.status(200).json(result[0]))
+    .then(result => response.status(200).json(result))
     .catch(next);
 }
 
@@ -129,8 +129,6 @@ function deleteProducts(request, response, next) {
     .then(result => response.status(200).json(result))
     .catch(next);
 }
-
-
 
 module.exports = {
   server: app,
